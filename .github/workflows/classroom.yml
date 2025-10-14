@@ -1,0 +1,82 @@
+name: Autograding Tests
+'on':
+- push
+- repository_dispatch
+permissions:
+  checks: write
+  actions: read
+  contents: read
+jobs:
+  run-autograding-tests:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-classroom[bot]'
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: File structure check
+      id: file-structure-check
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: File structure check
+        setup-command: ''
+        command: find . -maxdepth 1 -name '*.h' | wc -l
+        timeout: 10
+    - name: Implementation file check
+      id: implementation-file-check
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Implementation file check
+        setup-command: ''
+        command: find . -maxdepth 1 -name '*.cpp' | wc -l
+        timeout: 10
+        max-score: 5
+    - name: Private members check
+      id: private-members-check
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Private members check
+        setup-command: ''
+        command: 'grep -c ''private:'' *.h 2>/dev/null | awk -F: ''{sum += $2} END
+          {print sum}'''
+        timeout: 10
+        max-score: 5
+    - name: All classes declared
+      id: all-classes-declared
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: All classes declared
+        setup-command: ''
+        command: 'grep -c ''^class '' *.h | awk -F: ''{sum += $2} END {print sum}'''
+        timeout: 10
+        max-score: 5
+    - name: Constructor declaration
+      id: constructor-declaration
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Constructor declaration
+        setup-command: ''
+        command: grep -E '(Animal|Mammal|Bird|Reptile|Enclosure|Visitor|Zoo)\\(\\);'
+          *.h >/dev/null 2>&1 && echo 'PASS' || echo 'FAIL'
+        timeout: 10
+        max-score: 5
+    - name: Destructor declaration
+      id: destructor-declaration
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Destructor declaration
+        setup-command: ''
+        command: 'grep -c ''~'' *.h | awk -F: ''{sum += $2} END {if(sum >= 7) print
+          "PASS"; else print "FAIL"}'''
+        timeout: 10
+        max-score: 5
+    - name: Autograding Reporter
+      uses: classroom-resources/autograding-grading-reporter@v1
+      env:
+        FILE-STRUCTURE-CHECK_RESULTS: "${{steps.file-structure-check.outputs.result}}"
+        IMPLEMENTATION-FILE-CHECK_RESULTS: "${{steps.implementation-file-check.outputs.result}}"
+        PRIVATE-MEMBERS-CHECK_RESULTS: "${{steps.private-members-check.outputs.result}}"
+        ALL-CLASSES-DECLARED_RESULTS: "${{steps.all-classes-declared.outputs.result}}"
+        CONSTRUCTOR-DECLARATION_RESULTS: "${{steps.constructor-declaration.outputs.result}}"
+        DESTRUCTOR-DECLARATION_RESULTS: "${{steps.destructor-declaration.outputs.result}}"
+      with:
+        runners: file-structure-check,implementation-file-check,private-members-check,all-classes-declared,constructor-declaration,destructor-declaration
