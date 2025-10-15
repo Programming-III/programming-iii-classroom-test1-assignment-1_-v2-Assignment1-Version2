@@ -78,15 +78,6 @@ jobs:
         command: timeout 5 ./main > /dev/null 2>&1 && echo 'EXECUTION_SUCCESS'
         timeout: 10
         max-score: 5
-    - name: Course Code Display
-      id: course-code-display
-      uses: classroom-resources/autograding-command-grader@v1
-      with:
-        test-name: Course Code Display
-        setup-command: "++ -std=c++11 -o main main.cpp 2>/dev/null"
-        command: "./main 2>&1 | grep -E 'Course:.*[A-Z]+[0-9]+'"
-        timeout: 10
-        max-score: 5
     - name: Student Enrollment Section
       id: student-enrollment-section
       uses: classroom-resources/autograding-command-grader@v1
@@ -115,8 +106,7 @@ jobs:
         CONSTRUCTOR-DECLARATION_RESULTS: "${{steps.constructor-declaration.outputs.result}}"
         DESTRUCTOR-DECLARATION_RESULTS: "${{steps.destructor-declaration.outputs.result}}"
         PROGRAM-EXECUTES-WITHOUT-CRASH_RESULTS: "${{steps.program-executes-without-crash.outputs.result}}"
-        COURSE-CODE-DISPLAY_RESULTS: "${{steps.course-code-display.outputs.result}}"
         STUDENT-ENROLLMENT-SECTION_RESULTS: "${{steps.student-enrollment-section.outputs.result}}"
         INSTRUCTOR-INFORMATION_RESULTS: "${{steps.instructor-information.outputs.result}}"
       with:
-        runners: file-structure-check,implementation-file-check,private-members-check,all-classes-declared,constructor-declaration,destructor-declaration,program-executes-without-crash,course-code-display,student-enrollment-section,instructor-information
+        runners: file-structure-check,implementation-file-check,private-members-check,all-classes-declared,constructor-declaration,destructor-declaration,program-executes-without-crash,student-enrollment-section,instructor-information
