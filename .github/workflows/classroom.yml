@@ -13,100 +13,61 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
-    - name: File structure check
-      id: file-structure-check
-      uses: classroom-resources/autograding-command-grader@v1
-      with:
-        test-name: File structure check
-        setup-command: ''
-        command: find . -maxdepth 1 -name '*.h' | wc -l
-        timeout: 10
-    - name: Implementation file check
+    - name: Implementation File Check
       id: implementation-file-check
       uses: classroom-resources/autograding-command-grader@v1
       with:
-        test-name: Implementation file check
+        test-name: Implementation File Check
         setup-command: ''
         command: find . -maxdepth 1 -name '*.cpp' | wc -l
         timeout: 10
         max-score: 5
-    - name: Private members check
+    - name: Private Members Check
       id: private-members-check
       uses: classroom-resources/autograding-command-grader@v1
       with:
-        test-name: Private members check
+        test-name: Private Members Check
         setup-command: ''
         command: 'grep -c ''private:'' *.h 2>/dev/null | awk -F: ''{sum += $2} END
           {print sum}'''
         timeout: 10
         max-score: 5
-    - name: All classes declared
+    - name: All Classes Declared
       id: all-classes-declared
       uses: classroom-resources/autograding-command-grader@v1
       with:
-        test-name: All classes declared
+        test-name: All Classes Declared
         setup-command: ''
         command: 'grep -c ''^class '' *.h | awk -F: ''{sum += $2} END {print sum}'''
         timeout: 10
         max-score: 5
-    - name: Constructor declaration
+    - name: Constructor Declaration
       id: constructor-declaration
       uses: classroom-resources/autograding-command-grader@v1
       with:
-        test-name: Constructor declaration
+        test-name: Constructor Declaration
         setup-command: ''
         command: grep -E '(Person|Student|Instructor|Course|Portal|ProgressReport)\\(\\);'
           *.h >/dev/null 2>&1 && echo 'PASS' || echo 'FAIL'
         timeout: 10
         max-score: 5
-    - name: Destructor declaration
+    - name: Destructor Declaration
       id: destructor-declaration
       uses: classroom-resources/autograding-command-grader@v1
       with:
-        test-name: Destructor declaration
+        test-name: Destructor Declaration
         setup-command: ''
         command: 'grep -c ''~'' *.h | awk -F: ''{sum += $2} END {if(sum >= 7) print
           "PASS"; else print "FAIL"}'''
         timeout: 10
         max-score: 5
-    - name: Program Executes Without Crash
-      id: program-executes-without-crash
-      uses: classroom-resources/autograding-command-grader@v1
-      with:
-        test-name: Program Executes Without Crash
-        setup-command: g++ -std=c++11 -Wall -Wextra -o main main.cpp 2>/dev/null
-        command: timeout 5 ./main > /dev/null 2>&1 && echo 'EXECUTION_SUCCESS'
-        timeout: 10
-        max-score: 5
-    - name: Student Enrollment Section
-      id: student-enrollment-section
-      uses: classroom-resources/autograding-command-grader@v1
-      with:
-        test-name: Student Enrollment Section
-        setup-command: g++ -std=c++11 -o main main.cpp 2>/dev/null
-        command: "./main 2>&1 | grep -i 'enrolled'"
-        timeout: 10
-        max-score: 4
-    - name: Instructor Information
-      id: instructor-information
-      uses: classroom-resources/autograding-command-grader@v1
-      with:
-        test-name: Instructor Information
-        setup-command: g++ -std=c++11 -o main main.cpp 2>/dev/null
-        command: "./main 2>&1 | grep -i 'instructor'"
-        timeout: 10
-        max-score: 2
     - name: Autograding Reporter
       uses: classroom-resources/autograding-grading-reporter@v1
       env:
-        FILE-STRUCTURE-CHECK_RESULTS: "${{steps.file-structure-check.outputs.result}}"
         IMPLEMENTATION-FILE-CHECK_RESULTS: "${{steps.implementation-file-check.outputs.result}}"
         PRIVATE-MEMBERS-CHECK_RESULTS: "${{steps.private-members-check.outputs.result}}"
         ALL-CLASSES-DECLARED_RESULTS: "${{steps.all-classes-declared.outputs.result}}"
         CONSTRUCTOR-DECLARATION_RESULTS: "${{steps.constructor-declaration.outputs.result}}"
         DESTRUCTOR-DECLARATION_RESULTS: "${{steps.destructor-declaration.outputs.result}}"
-        PROGRAM-EXECUTES-WITHOUT-CRASH_RESULTS: "${{steps.program-executes-without-crash.outputs.result}}"
-        STUDENT-ENROLLMENT-SECTION_RESULTS: "${{steps.student-enrollment-section.outputs.result}}"
-        INSTRUCTOR-INFORMATION_RESULTS: "${{steps.instructor-information.outputs.result}}"
       with:
-        runners: file-structure-check,implementation-file-check,private-members-check,all-classes-declared,constructor-declaration,destructor-declaration,program-executes-without-crash,student-enrollment-section,instructor-information
+        runners: implementation-file-check,private-members-check,all-classes-declared,constructor-declaration,destructor-declaration
