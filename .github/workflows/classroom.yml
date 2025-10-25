@@ -61,6 +61,15 @@ jobs:
           "PASS"; else print "FAIL"}'''
         timeout: 10
         max-score: 5
+    - name: Student Display Information
+      id: student-display-information
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Student Display Information
+        setup-command: g++ -std=c++11 main.cpp -o main
+        command: ./main -grep "Student Info\nName:\nID:\nYear Level:\nMajor:"
+        timeout: 10
+        max-score: 5
     - name: Autograding Reporter
       uses: classroom-resources/autograding-grading-reporter@v1
       env:
@@ -69,5 +78,6 @@ jobs:
         ALL-CLASSES-DECLARED_RESULTS: "${{steps.all-classes-declared.outputs.result}}"
         CONSTRUCTOR-DECLARATION_RESULTS: "${{steps.constructor-declaration.outputs.result}}"
         DESTRUCTOR-DECLARATION_RESULTS: "${{steps.destructor-declaration.outputs.result}}"
+        STUDENT-DISPLAY-INFORMATION_RESULTS: "${{steps.student-display-information.outputs.result}}"
       with:
-        runners: implementation-file-check,private-members-check,all-classes-declared,constructor-declaration,destructor-declaration
+        runners: implementation-file-check,private-members-check,all-classes-declared,constructor-declaration,destructor-declaration,student-display-information
