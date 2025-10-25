@@ -284,7 +284,7 @@ int main() {
     // The simplest and safe approach: create independent Course and Student pointers and show portal behavior.
     Course* demoCourse = new Course("CS101", "Introduction to Programming", 3);
     Student* s1 = new Student("Sara Ahmed", 2201, 2, "Informatics");
-    Student* s2 = new Student("Omar Nabil", 2202, 3, "Informatics");
+    Student* s2 = new Student("Omar Nabil", 2202, 2, "Informatics");
 
     demoCourse->addStudent(s1);
     demoCourse->addStudent(s2);
