@@ -4,7 +4,6 @@
 #include "Instructor.h"
 #include "Course.h"
 #include "Portal.h"
-#include "ProgressReport.h"
 
 using namespace std;
 
