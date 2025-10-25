@@ -37,6 +37,7 @@ string Student::getMajor() const { return major; }
 
 void Student::display() const {
     Person::display();
+    // display information
     cout << "Year: " << yearLevel << "\n";
     cout << "Major: " << major << "\n";
 }
