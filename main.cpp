@@ -17,7 +17,7 @@ string Person::getName() const { return name; }
 
 void Person::setId(int id) { this->id = id; }
 int Person::getId() const { return id; }
-
+//display person info()
 void Person::display() const {
     cout << "Name: " << name << "\n";
     cout << "ID: " << id << "\n";
