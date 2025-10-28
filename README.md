@@ -71,21 +71,6 @@ Represents the main educational portal that manages students, instructors, and c
 
 ---
 
-### d) **ProgressReport Class**
-
-Represents a simple progress report generated for a student.
-
-* **Attributes** (all private):
-
-  * `Student* student`
-  * `int totalCourses`
-  * `float averageGrade`
-
-* **Methods**:
-
-  * `displayReport()`: Displays the student’s name, total courses, and average grade.
-
----
 
 ## Deliverables
 
