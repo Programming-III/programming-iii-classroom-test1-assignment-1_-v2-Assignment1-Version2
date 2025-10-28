@@ -61,13 +61,13 @@ jobs:
           "PASS"; else print "FAIL"}'''
         timeout: 10
         max-score: 5
-    - name: Student Display Information
-      id: student-display-information
+    - name: Student Display
+      id: student-display
       uses: classroom-resources/autograding-command-grader@v1
       with:
-        test-name: Student Display Information
+        test-name: Student Display
         setup-command: g++ -std=c++11 -o main main.cpp
-        command: './main | grep -q "Name: Omar Nabil ID: 2202 Year: 2 Major: Informatics" '
+        command: './main | grep -q "Name: Omar Nabil\nID: 2202\nYear: 2\nMajor: Informatics" '
         timeout: 10
         max-score: 5
     - name: Autograding Reporter
@@ -78,6 +78,6 @@ jobs:
         ALL-CLASSES-DECLARED_RESULTS: "${{steps.all-classes-declared.outputs.result}}"
         CONSTRUCTOR-DECLARATION_RESULTS: "${{steps.constructor-declaration.outputs.result}}"
         DESTRUCTOR-DECLARATION_RESULTS: "${{steps.destructor-declaration.outputs.result}}"
-        STUDENT-DISPLAY-INFORMATION_RESULTS: "${{steps.student-display-information.outputs.result}}"
+        STUDENT-DISPLAY_RESULTS: "${{steps.student-display.outputs.result}}"
       with:
-        runners: implementation-file-check,private-members-check,all-classes-declared,constructor-declaration,destructor-declaration,student-display-information
+        runners: implementation-file-check,private-members-check,all-classes-declared,constructor-declaration,destructor-declaration,student-display
