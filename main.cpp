@@ -109,7 +109,7 @@ void Course::displayCourseInfo() const {
         if (s) cout << "- " << s->getName() << " (ID: " << s->getId() << ")\n";
     }
 }
-
+//hello everyonee
 // ---------------- ProgressReport.cpp-like definitions ----------------
 ProgressReport::ProgressReport() : student(nullptr), totalCourses(0), averageGrade(0.0f) {}
 ProgressReport::ProgressReport(Student* s, int totalCourses, float averageGrade)
