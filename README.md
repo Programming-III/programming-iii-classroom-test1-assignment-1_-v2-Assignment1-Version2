@@ -111,8 +111,7 @@ Educational Portal initialized successfully.
 Course: CS101 - Introduction to Programming
 Max Students: 3
 Currently Enrolled:
-- Sara Ahmed (ID: 2201)
-- Omar Nabil (ID: 2202)
+  Omar Nabil (ID: 2202)
 
 Instructor Info:
 Name: Dr. Lina Khaled
@@ -120,7 +119,7 @@ Department: Computer Science
 Experience: 5 years
 
 Student Info:
-Name: Sara Ahmed
+Name: Omar Nabil
 Year: 2
 Major: Informatics
 
