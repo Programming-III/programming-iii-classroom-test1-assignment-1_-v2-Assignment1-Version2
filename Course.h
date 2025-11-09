@@ -6,34 +6,34 @@
 #include "Student.h"
 #include "Person.h"
 #include <string>
+//baaaa
+// class Course {
+// private:
+//     string courseCode;
+//     string courseName;
+//     int maxStudents;
+//     Student** enrolledStudents; // dynamic array of Student*
+//     int currentCount;
 
-class Course {
-private:
-    string courseCode;
-    string courseName;
-    int maxStudents;
-    Student** enrolledStudents; // dynamic array of Student*
-    int currentCount;
+// public:
+//     Course();
+//     Course(const string& code, const string& name, int maxStudents);
+//     ~Course();
 
-public:
-    Course();
-    Course(const string& code, const string& name, int maxStudents);
-    ~Course();
+//     void setCourseCode(const string& code);
+//     string getCourseCode() const;
 
-    void setCourseCode(const string& code);
-    string getCourseCode() const;
+//     void setCourseName(const string& name);
+//     string getCourseName() const;
 
-    void setCourseName(const string& name);
-    string getCourseName() const;
+//     void setMaxStudents(int m);
+//     int getMaxStudents() const;
 
-    void setMaxStudents(int m);
-    int getMaxStudents() const;
+//     bool addStudent(Student* s); // returns true if added
+//     void displayCourseInfo() const;
 
-    bool addStudent(Student* s); // returns true if added
-    void displayCourseInfo() const;
-
-    int getCurrentCount() const;
-};
+//     int getCurrentCount() const;
+// };
 
 #endif // COURSE_H
 
